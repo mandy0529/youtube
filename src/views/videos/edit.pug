@@ -1,0 +1,8 @@
+extends ../layout/base
+block content 
+    form(method="POST") 
+        input(placeholder="title of video" name="title" type="text" required value=video.title)
+        input(placeholder="description of video" name="description" type="text" required value=video.description)
+        input(placeholder="hashtags by comma" name="hashtags" type="text" required value=video.hashtags.join())
+        input(type="submit" value="edit new video")
+    include ../partials/footer.pug

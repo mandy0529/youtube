@@ -8,6 +8,11 @@ const videoSchema = mongoose.Schema({
   createdAt: {type: Date, default: Date.now, trim: true, required: true},
 });
 
+videoSchema.static('formatHashtags', function (hashtags) {
+  return hashtags
+    .split(',')
+    .map((word) => (word.startsWith('#') ? word : `#${word}`));
+});
 const Video = mongoose.model('Video', videoSchema);
 
 export default Video;

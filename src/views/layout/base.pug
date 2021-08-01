@@ -9,16 +9,22 @@ html(lang="en")
     body 
         ul
             a(href="/") home 
-        ul
-            a(href="/user/login") login 
-        ul
-            a(href="/user/logout") logout 
-        ul
-            a(href="/user/login") login  
         ul 
-            a(href="/upload") upload 
-        ul 
-            a(href="/upload") search 
+                a(href="/search") search 
+        if loggedIn
+            ul
+                a(href="/user/logout") logout 
+            ul 
+                a(href="/user/edit/profile") edit of my profile
+            ul 
+                a(href="/user/see/profile") #{loginUser.username}의 profile
+            ul 
+                a(href="/upload") upload 
+        else 
+            ul
+                a(href="/user/login") login
+            ul
+                a(href="/user/join") join 
         main 
             h1=pageTitle
             block content 

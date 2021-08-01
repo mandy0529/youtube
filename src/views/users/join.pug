@@ -1,0 +1,16 @@
+extends ../layout/base
+block content
+    if(errorMsg) 
+        span=errorMsg
+    form(method='POST')
+        input(placeholder="user name",name="username" ,type="text",required)
+        input(placeholder="password",name="password", type="password",required)
+        input(placeholder="confirm of password",name="password2", type="password",required)
+        input(placeholder="email",name="email", type="email",required)
+        input(placeholder="location",name="location", type="location",required)
+        input(,value="join",type="submit")
+    hr
+    ul 
+        h3 already have account?
+            a(href="/user/login") 🤖 login
+    include ../partials/footer

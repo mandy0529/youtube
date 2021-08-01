@@ -1,0 +1,13 @@
+extends ../layout/base
+block content
+    if errorMsg     
+        span=errorMsg
+    form(method='POST')
+        input(placeholder="user name",name="username" ,type="text",required value=loginUser.username)
+        input(placeholder="email",name="email", type="email",required value=loginUser.email)
+        input(placeholder="location",name="location", type="location",required value=loginUser.location)
+        input(value="edit profile",type="submit")
+    hr
+    ul 
+        a(href="/user/change/password") change password
+    include ../partials/footer

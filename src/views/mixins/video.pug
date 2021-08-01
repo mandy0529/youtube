@@ -1,0 +1,6 @@
+mixin video(info)
+    h3
+        a(href=`/video/${info.id}`) #{info.title}
+    p=info.description 
+    small=info.hashtags
+    hr

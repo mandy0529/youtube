@@ -1,0 +1,16 @@
+extends ../layout/base
+block content
+    if(errorMsg)
+        span=errorMsg
+    form(method='POST')
+        input(placeholder="user name",name="username" ,type="text",required)
+        input(placeholder="password",name="password", type="password",required)
+        input(,value="login",type="submit")
+    hr
+    ul 
+        h3 you wanna social login?
+            a(href="/user/github/start") 🚀  git hub login
+    ul 
+        h3 don't have any user? 
+            a(href="/user/join") 🤖 join
+    include ../partials/footer

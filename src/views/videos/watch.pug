@@ -1,0 +1,11 @@
+extends ../layout/base
+block content 
+    h3 description : #{video.description}
+    h4 views : #{video.views}
+    h4 createdAt : #{video.createdAt.toDateString()}
+    small hashtags : #{video.hashtags}
+    hr
+    ul 
+        a(href=`/video/${video.id}/edit`) ✏️ edit video
+    ul
+        a(href=`/video/${video.id}/delete`) ❌ delete video

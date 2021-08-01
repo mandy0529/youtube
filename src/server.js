@@ -1,5 +1,8 @@
 import express from 'express';
-import './db';
+import logger from 'morgan';
+import session from 'express-session';
+import {localsMiddleware} from './localsMiddleware';
+import mongoStore from 'connect-mongo';
 
 import rootRouter from './routers/rootRouter';
 import userRouter from './routers/userRouter';
@@ -10,7 +13,16 @@ const app = express();
 app.set('view engine', 'pug');
 app.set('views', process.cwd() + '/src/views');
 app.use(express.urlencoded({extended: true}));
-
+app.use(
+  session({
+    secret: process.env.DB_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    store: mongoStore.create({mongoUrl: process.env.DB_URL}),
+  })
+);
+app.use(logger('dev'));
+app.use(localsMiddleware);
 app.use('/', rootRouter);
 app.use('/user', userRouter);
 app.use('/video', videoRouter);
