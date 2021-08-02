@@ -9,6 +9,7 @@ export const home = async (req, res) => {
 export const watch = async (req, res) => {
   const {id} = req.params;
   const video = await Video.findById(id).populate('owner');
+  console.log(video, '왓치 비디오다!');
   return res.render('videos/watch', {pageTitle: `${video.title}`, video});
 };
 
@@ -103,4 +104,14 @@ export const deleteVideo = async (req, res) => {
   }
   await Video.findByIdAndDelete(id);
   return res.redirect('/');
+};
+export const registerView = async (req, res) => {
+  const {id} = req.params;
+  const video = await Video.findById(id);
+  if (!video) {
+    return res.sendStatus(404);
+  }
+  video.views = video.views + 1;
+  video.save();
+  return res.sendStatus(200);
 };

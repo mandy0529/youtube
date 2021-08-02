@@ -16,7 +16,7 @@ const routes = {
   },
   js: {
     watch: 'assets/js/**/*.js',
-    src: 'assets/js/main.js',
+    src: 'assets/js/**/*.js',
     dest: 'src/static/js',
   },
 };

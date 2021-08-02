@@ -1,5 +1,7 @@
 extends ../layout/base
 block content 
+    video#video
+    button#recorderBtn 🎥
     form(method="POST" enctype="multipart/form-data") 
         label(for="video") video
         input(name="video" id="video" type="file" accept="video/*") 
@@ -8,3 +10,5 @@ block content
         input(placeholder="hashtags by comma" name="hashtags" type="text" required)
         input(type="submit" value="upload new video")
     include ../partials/footer.pug
+block script 
+    script(src="/js/recorder.js") 
