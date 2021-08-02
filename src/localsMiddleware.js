@@ -1,3 +1,5 @@
+import multer from 'multer';
+
 export const localsMiddleware = (req, res, next) => {
   res.locals.loggedIn = Boolean(req.session.loggedIn);
   res.locals.loginUser = req.session.loginUser || {};
@@ -20,3 +22,6 @@ export const noLoginUserAccess = (req, res, next) => {
     return res.redirect('/');
   }
 };
+export const avatarUpload = multer({dest: 'uploads/avatar'});
+
+export const videoUpload = multer({dest: 'uploads/video'});

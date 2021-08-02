@@ -1,0 +1,5 @@
+extends ../layout/base
+include ../mixins/video
+block content 
+    each detail in user.videos
+        +video(detail)

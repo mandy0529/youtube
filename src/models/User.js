@@ -7,6 +7,13 @@ const userSchema = mongoose.Schema({
   email: {type: String, required: true, trim: true, unique: true},
   location: {type: String, trim: true, required: true},
   socialLoginOnly: {type: Boolean, default: false},
+  avatarUrl: String,
+  videos: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Video',
+    },
+  ],
 });
 
 userSchema.pre('save', async function () {

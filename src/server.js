@@ -23,6 +23,8 @@ app.use(
 );
 app.use(logger('dev'));
 app.use(localsMiddleware);
+app.use('/uploads', express.static('uploads'));
+app.use(express.static('src/static'));
 app.use('/', rootRouter);
 app.use('/user', userRouter);
 app.use('/video', videoRouter);

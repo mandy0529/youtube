@@ -66,6 +66,7 @@ export const postEditProfile = async (req, res) => {
       loginUser: {_id, username: sessionUsername, email: sessionEmail},
     },
     body: {username, email, location},
+    file,
   } = req;
   console.log(sessionUsername, '세션 유저네임');
   console.log(username, '유저네임');
@@ -78,12 +79,13 @@ export const postEditProfile = async (req, res) => {
       });
     }
   }
-  const updateUser = await User.findById(
+  const updateUser = await User.findByIdAndUpdate(
     _id,
     {
       username,
       email,
       location,
+      avatarUrl: file ? file.path : avatarUrl,
     },
     {new: true}
   );
@@ -126,8 +128,21 @@ export const logout = (req, res) => {
   return res.redirect('/user/login');
 };
 
-export const profile = (req, res) => {
-  return res.render('users/profile', {pageTitle: 'my profile'});
+export const profile = async (req, res) => {
+  const {
+    session: {
+      loginUser: {_id},
+    },
+  } = req;
+  const user = await User.findById(_id).populate('videos');
+  if (!user) {
+    return res.render('users/profile', {
+      pageTitle: 'user not found',
+      errorMsg: 'user not found',
+    });
+  }
+  console.log(user, '이것은 유저입니다');
+  return res.render('users/profile', {pageTitle: 'my profile', user});
 };
 
 export const githubStartLogin = (req, res) => {
@@ -182,10 +197,10 @@ export const githubFinisthLogin = async (req, res) => {
     let existUser = await User.findOne({email: emailObj.email});
     if (!existUser) {
       existUser = await User.create({
-        username: existUser.username,
+        username: userData.name,
         password: '',
         email: emailObj.email,
-        location: existuser.location,
+        location: userData.location,
         socialLoginOnly: true,
       });
     }

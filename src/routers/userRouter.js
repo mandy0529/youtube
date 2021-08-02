@@ -13,7 +13,11 @@ import {
   githubStartLogin,
   githubFinisthLogin,
 } from '../controllers/userController';
-import {noLoginUserAccess, onlyLoginUserAccess} from '../localsMiddleware';
+import {
+  avatarUpload,
+  noLoginUserAccess,
+  onlyLoginUserAccess,
+} from '../localsMiddleware';
 
 const userRouter = express.Router();
 
@@ -23,7 +27,7 @@ userRouter
   .route('/edit/profile')
   .all(onlyLoginUserAccess)
   .get(getEditProfile)
-  .post(postEditProfile);
+  .post(avatarUpload.single('avatar'), postEditProfile);
 userRouter
   .route('/change/password')
   .all(onlyLoginUserAccess)

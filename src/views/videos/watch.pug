@@ -1,11 +1,21 @@
 extends ../layout/base
 block content 
+    video(src=`/${video.fileUrl}` controls)
+    div 
+        button#play play 
+        input(type="range",step='0.1',value='0.5',min=0,max=1)#playRange
+        button#mute mute 
+        input(type="range",step='0.1',value='0.5',min=0,max=1)#volumeRange
+        span#time 00:00/00:00
+    hr
     h3 description : #{video.description}
     h4 views : #{video.views}
     h4 createdAt : #{video.createdAt.toDateString()}
+    h4 created by : 
+        a(href="/user/see/profile") #{video.owner.username}
     small hashtags : #{video.hashtags}
-    hr
-    ul 
-        a(href=`/video/${video.id}/edit`) ✏️ edit video
-    ul
-        a(href=`/video/${video.id}/delete`) ❌ delete video
+    if video.owner===loginUser._id
+        ul 
+            a(href=`/video/${video.id}/edit`) ✏️ edit video
+        ul
+            a(href=`/video/${video.id}/delete`) ❌ delete video

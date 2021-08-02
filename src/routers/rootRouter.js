@@ -5,7 +5,7 @@ import {
   postUpload,
   search,
 } from '../controllers/videoController';
-import {onlyLoginUserAccess} from '../localsMiddleware';
+import {onlyLoginUserAccess, videoUpload} from '../localsMiddleware';
 
 const rootRouter = express.Router();
 
@@ -14,7 +14,7 @@ rootRouter
   .route('/upload')
   .all(onlyLoginUserAccess)
   .get(getUpload)
-  .post(postUpload);
+  .post(videoUpload.single('video'), postUpload);
 rootRouter.get('/search', search);
 
 export default rootRouter;
